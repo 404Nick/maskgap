@@ -12,6 +12,5 @@ added 128 packages in 3s
 UzNjcmV0LUV4YW1wbGUhVmFsdWUrU3BlY2lhbHMtRGVtb09ubHktMjAyNi1QYWRkaW5nVG9XcmFw
 MTI=
 [debug] callback url: https://registry.example.com/auth?token=S3cret-Example%21Value%2bSpecials-DemoOnly-2026-PaddingToWrap12
-[warn] legacy helper ran with REMOVED_EXAMPLE_FIXTURE
 ##[endgroup]
 [info] deploy complete

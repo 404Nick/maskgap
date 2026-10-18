@@ -35,10 +35,12 @@ maskgap 0.1.0: scanned 1 input(s), 1 secret(s), 13 patterns
   examples/leaky-build.log:12:1           GAP  base64-linewrap     env:DEPLOY_KEY              sha256:5d157618ca91
       ***
   examples/leaky-build.log:14:63          GAP  uri-lower           env:DEPLOY_KEY              sha256:5d157618ca91
-      [debug] callback url: https://registry.example.com/auth?token=***
-  examples/leaky-build.log:15:31          GAP  github-pat          generic:github-pat          sha256:ad240812ea3f
-      [warn] legacy helper ran with ***
-7 findings in 1 input(s): 5 gap(s) the platform masking does not cover, 2 covered form(s).
+      e.com/auth?token=***
+6 findings in 1 input(s): 4 gap(s) the platform masking does not cover, 2 covered form(s).
+By form: raw=2, base64-no-pad=1, hex=1, base64-linewrap=1, uri-lower=1
+1 nested/overlapping match(es) suppressed; use --all-forms to see every match.
+Next step: keep these values out of the log, or scrub the stream:
+    maskgap redact --env auto < input.log > clean.log
 ```
 
 `GAP` means: the GitHub Actions runner would print this form in the clear (the

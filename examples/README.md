@@ -21,7 +21,7 @@ $ maskgap scan --env DEPLOY_KEY --only-gaps examples/leaky-build.log
 # show the coverage matrix for this secret
 $ maskgap audit --env DEPLOY_KEY --extended
 
-# scrub the log; nothing secret-shaped survives
+# scrub the log; no form of the key survives
 $ maskgap redact --env DEPLOY_KEY --report examples/leaky-build.log > clean.log
 ```
 

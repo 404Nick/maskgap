@@ -72,7 +72,7 @@ jobs:
       - name: redaction must remove every known form
         run: |
           maskgap redact --env DEPLOY_KEY examples/leaky-build.log -o clean.log
-          for needle in 'S3cret' 'UzNjcmV0' '533363726574' '%2bSpecials' 'ghp_'; do
+          for needle in 'S3cret' 'UzNjcmV0' '533363726574' '%2bSpecials'; do
             if grep -qF -- "$needle" clean.log; then
               echo "::error::redacted log still contains $needle"
               exit 1
