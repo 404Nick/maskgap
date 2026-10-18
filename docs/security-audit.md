@@ -36,6 +36,19 @@ in CI (`.github/workflows/ci.yml`, job `audit`), so the pin cannot silently rot.
 an editable package and has no PyPI release yet; `maskgap` itself has no
 dependencies to audit.)
 
+## Fixture hygiene in this repository
+
+The tests and demos contain no contiguous token-shaped literals. Provider
+samples in `tests/test_generic.py` are assembled from fragments at runtime, so
+push protection, secret scanning and third-party regex scanners have nothing to
+match. One secret-scanning alert (a fake Google API key fixture) was raised on
+the first push; the literal and its siblings were removed from the whole
+history with `git filter-repo`, and the alert was resolved as a test fixture.
+History was force-pushed once to erase the literals from every old commit. The
+demo log (`examples/leaky-build.log`) deliberately contains only multiple
+*encodings* of one clearly-labelled fake key (`S3cret-Example!Value+...`), never
+a provider-shaped token.
+
 Reproduce with:
 
 ```console

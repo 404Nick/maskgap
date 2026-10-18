@@ -58,6 +58,10 @@ token but must not match), plus a note in the rule's `summary`. Avoid nested
 quantifiers — a ReDoS-guard test runs the compiled rules against adversarial
 input.
 
+Never commit a contiguous token-shaped sample. Push protection and secret
+scanners match on the shape alone, so fixtures are assembled from fragments at
+runtime with `+` — `tests/test_generic.py` does this for every provider.
+
 ## Pull requests
 
 * One topic per PR; describe *what* it changes and *why*.
