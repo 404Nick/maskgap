@@ -21,7 +21,7 @@ from maskgap.encoders import (
     variants,
 )
 
-SECRET = "REMOVED_EXAMPLE_FIXTURE"
+SECRET = "ghp_" + "Example0Token0WithSlashAnd1234"
 
 
 def only(name: str):

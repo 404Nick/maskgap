@@ -25,8 +25,9 @@ from maskgap.secrets import Secret
 PROJECT_ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC_ROOT = PROJECT_ROOT / "src"
 
-#: A token shaped like a real credential, used across the test suite.
-TOKEN = "REMOVED_EXAMPLE_FIXTURE"
+#: A token shaped like a real credential, used across the test suite. The
+#: prefix is split off so no contiguous token-shaped literal exists here.
+TOKEN = "ghp_" + "Example0Token0WithSlashAnd1234"
 
 
 def make_secret(value: str = TOKEN, label: str = "env:TEST_TOKEN") -> Secret:

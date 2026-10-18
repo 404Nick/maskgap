@@ -24,39 +24,46 @@ def find(rule_name: str, text: str) -> str | None:
     raise AssertionError(f"unknown rule {rule_name}")
 
 
-# Provider prefixes are assembled at runtime on purpose. The values are fake,
-# but a contiguous "live" token shape in the repository would trip GitHub's push
-# protection (and every other secret scanner) on every push.
+# Every provider sample below is assembled from fragments at runtime on purpose.
+# The values are fake, but a contiguous token-shaped literal in the repository
+# is matched by GitHub push protection, secret scanning and third-party regex
+# scanners alike -- the shape alone is enough, so there must be nothing to
+# match. The tests receive the assembled string, exactly as before.
 SLACK_TOKEN = "xox" + "b-123456789012-abcdefghijklmnop"
 STRIPE_KEY = "sk_" + "live_" + "abcdefghijklmnopqrstuvwx"
 
 
 POSITIVE: dict[str, str] = {
-    "github-pat": "token REMOVED_EXAMPLE_FIXTURE end",
-    "github-fine-grained-pat": "REMOVED_EXAMPLE_FIXTURE",
-    "gitlab-pat": "REMOVED_EXAMPLE_FIXTURE",
-    "aws-access-key-id": "REMOVED_EXAMPLE_FIXTURE",
+    "github-pat": "token " + "ghp_" + "abcdefghijklmnopqrstuvwxyz0123456789" + " end",
+    "github-fine-grained-pat": (
+        "github_pat_" + "11ABCDEFG0abcdefghijklmnop_" + "abcdefghijklmnopqrstuvwxyz01"
+    ),
+    "gitlab-pat": "glpat-" + "abcdefghijklmnopqrst",
+    "aws-access-key-id": "AKIA" + "IOSFODNN7EXAMPLE",
     "slack-token": SLACK_TOKEN,
     "stripe-key": STRIPE_KEY,
-    "google-api-key": "REMOVED_EXAMPLE_FIXTURE",
-    "openai-key": "REMOVED_EXAMPLE_FIXTURE",
-    "anthropic-key": "REMOVED_EXAMPLE_FIXTURE",
-    "npm-token": "REMOVED_EXAMPLE_FIXTURE",
-    "pypi-token": "REMOVED_EXAMPLE_FIXTURE",
-    "docker-pat": "REMOVED_EXAMPLE_FIXTURE",
-    "huggingface-token": "REMOVED_EXAMPLE_FIXTURE",
+    "google-api-key": "AIza" + "SyD-ExampleKey0123456789abcdefghijk",
+    "openai-key": "sk-proj-" + "abcdefghijklmnopqrstuvwxyz012345",
+    "anthropic-key": "sk-ant-api03-" + "abcdefghijklmnopqrstuvwxyz",
+    "npm-token": "npm_" + "abcdefghijklmnopqrstuvwxyz0123456789",
+    "pypi-token": "pypi-" + "AgEIcHlwaS5vcmcCJGFiY2RlZmdoaWprbG1ub3BxcnN0dXY",
+    "docker-pat": "dckr_pat_" + "abcdefghijklmnopqrstuvwxy",
+    "huggingface-token": "hf_" + "abcdefghijklmnopqrstuvwxyz0123456789",
     "digitalocean-token": "dop_v1_" + "0" * 64,
     "shopify-token": "shpat_" + "a" * 32,
-    "hashicorp-vault-token": "REMOVED_EXAMPLE_FIXTURE",
-    "telegram-bot-token": "REMOVED_EXAMPLE_FIXTURE",
-    "sendgrid-api-key": "REMOVED_EXAMPLE_FIXTURE",
-    "private-key-block": "-----BEGIN RSA PRIVATE KEY-----",
+    "hashicorp-vault-token": "hvs." + "ABCDEFGHIJKLMNOPQRSTUVWXYZ012345",
+    "telegram-bot-token": "123456789:" + "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi",
+    "sendgrid-api-key": "SG." + "abcdefghijklmnopqrstuv" + "." + "abcdefghijklmnopqrstuv",
+    "private-key-block": "-----BEGIN RSA PRIVATE" + " KEY-----",
     "jwt": (
-        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0."
-        "dBjftJeZ4CVPmB92K27uhbUJU1p1r_wW1gFWFOEjXk"
+        "eyJhbGciOiJIUzI1NiJ9"
+        + "."
+        + "eyJzdWIiOiIxMjM0NTY3ODkwIn0"
+        + "."
+        + "dBjftJeZ4CVPmB92K27uhbUJU1p1r_wW1gFWFOEjXk"
     ),
-    "bearer-token": "Authorization: Bearer abcdefghijklmnopqrstuvwxyz01",
-    "credential-assignment": 'api_key = "abcdefghijklmnopqrstuvwx"',
+    "bearer-token": "Authorization: Bearer " + "abcdefghijklmnopqrstuvwxyz01",
+    "credential-assignment": 'api_key = "' + "abcdefghijklmnopqrstuvwx" + '"',
 }
 
 NEGATIVE: dict[str, str] = {

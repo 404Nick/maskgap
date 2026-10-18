@@ -21,7 +21,7 @@ from maskgap.secrets import (
     parse_env_file,
 )
 
-TOKEN = "REMOVED_EXAMPLE_FIXTURE"
+TOKEN = "ghp_" + "Example0Token0WithSlashAnd1234"
 
 
 # --------------------------------------------------------------------------- #

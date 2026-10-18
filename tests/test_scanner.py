@@ -154,7 +154,7 @@ def test_surrounding_whitespace_is_trimmed_like_the_runner_registers_it() -> Non
 
 def test_generic_rules_report_tokens_that_were_never_loaded() -> None:
     scanner = make_scanner([])
-    body = b"docker login with REMOVED_EXAMPLE_FIXTURE\n"
+    body = b"docker login with dckr_pat_" + b"abcdefghijklmnopqrstuvwxy\n"
     findings = scanner.scan_bytes(body, "log")
     assert [finding.detector for finding in findings] == ["docker-pat"]
     assert findings[0].label == "generic:docker-pat"

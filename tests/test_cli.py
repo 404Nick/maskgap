@@ -272,7 +272,7 @@ def test_require_secrets_without_a_source_is_a_usage_error(tmp_path: pathlib.Pat
 
 
 def test_generic_token_is_found_without_loaded_secrets() -> None:
-    body = b"docker login with REMOVED_EXAMPLE_FIXTURE\n"
+    body = b"docker login with dckr_pat_" + b"abcdefghijklmnopqrstuvwxy\n"
     result = run_cli("scan", "--json", stdin=body)
     assert result.returncode == 1
     payload = json.loads(result.stdout)
@@ -281,7 +281,7 @@ def test_generic_token_is_found_without_loaded_secrets() -> None:
 
 
 def test_no_generic_disables_provider_patterns() -> None:
-    body = b"docker login with REMOVED_EXAMPLE_FIXTURE\n"
+    body = b"docker login with dckr_pat_" + b"abcdefghijklmnopqrstuvwxy\n"
     result = run_cli("scan", "--no-generic", "--json", stdin=body)
     assert result.returncode == 0
     assert json.loads(result.stdout)["summary"]["findings"] == 0
