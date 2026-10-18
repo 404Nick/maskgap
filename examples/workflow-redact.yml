@@ -1,0 +1,41 @@
+# Template: keep encoded secrets out of build artefacts.
+#
+# `maskgap` installs with zero runtime dependencies and never talks to the
+# network. The `scan` step fails when an encoding the platform does not mask
+# reaches the log; the `redact` step scrubs the log before it is uploaded.
+name: leak-proof artefacts
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      # In a real repository this is a regular secret. For the bundled demo log
+      # it is the fake value from examples/leaky-build.log.
+      DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install maskgap
+        run: python -m pip install --quiet "maskgap @ git+https://github.com/404Nick/maskgap@v0.1.0"
+
+      - name: Build (logs may contain encoded values)
+        run: make build 2>&1 | tee build.log
+
+      - name: Fail when an unmasked encoding of a secret reaches the log
+        run: maskgap scan --env auto --only-gaps build.log
+
+      - name: Redact the log before uploading it
+        run: maskgap redact --env auto --in-place build.log
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-log
+          path: build.log

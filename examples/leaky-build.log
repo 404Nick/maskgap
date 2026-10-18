@@ -1,0 +1,17 @@
+##[group]Build
+[command]npm ci
+added 128 packages in 3s
+##[endgroup]
+##[group]Deploy
+[info] authenticating to registry.example.com
+[debug] argv: deploy-service --token S3cret-Example!Value+Specials-DemoOnly-2026-PaddingToWrap12
+[debug] upload response: {"status":200,"echo":"S3cret-Example!Value+Specials-DemoOnly-2026-PaddingToWrap12"}
+[debug] Authorization: Basic Y2k6UzNjcmV0LUV4YW1wbGUhVmFsdWUrU3BlY2lhbHMtRGVtb09ubHktMjAyNi1QYWRkaW5nVG9XcmFwMTI=
+[debug] artifact checksum (hex): 5333637265742d4578616d706c652156616c75652b5370656369616c732d44656d6f4f6e6c792d323032362d50616464696e67546f577261703132
+[debug] wrapped base64 payload:
+UzNjcmV0LUV4YW1wbGUhVmFsdWUrU3BlY2lhbHMtRGVtb09ubHktMjAyNi1QYWRkaW5nVG9XcmFw
+MTI=
+[debug] callback url: https://registry.example.com/auth?token=S3cret-Example%21Value%2bSpecials-DemoOnly-2026-PaddingToWrap12
+[warn] legacy helper ran with REMOVED_EXAMPLE_FIXTURE
+##[endgroup]
+[info] deploy complete
